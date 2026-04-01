@@ -44,3 +44,14 @@ body {
   padding: 20px;
   box-sizing: border-box;
 }
+
+/* TODO */
+.task_item {
+  display: flex;
+  gap: 10px;
+
+  button {
+    width: 30px;
+    height: 30px;
+  }
+}
