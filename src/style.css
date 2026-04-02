@@ -55,3 +55,50 @@ body {
     height: 30px;
   }
 }
+
+/* Products Page */
+.product_list_item {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+
+  .product_image {
+    width: 100px;
+    height: 100px;
+    background-color: lightgray;
+  }
+}
+
+/* Cart */
+.cart_btn {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 35px;
+  height: 35px;
+  background-color: orange;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  i {
+    color: white;
+    font-size: 16px;
+  }
+
+  .count_bubble {
+    position: absolute;
+    top: -5px;
+    right: -5px;
+    width: 20px;
+    height: 20px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+  }
+}
