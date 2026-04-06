@@ -23,6 +23,11 @@ button {
   border-radius: 5px;
 }
 
+button:disabled {
+  background-color: lightgray;
+  cursor: not-allowed;
+}
+
 .sidebar {
   width: 15%;
   background-color: lightcoral;
