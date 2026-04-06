@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { validateEmail, validatePassword } from "../utils/validations";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -23,6 +24,9 @@ export default function Login() {
   }
 
   function handlePasswordBlur(e: React.KeyboardEvent<HTMLInputElement>) {
+    if (e.key === "Tab") {
+      return;
+    }
     if (validatePassword(password)) {
       setPasswordError("");
     } else {
@@ -30,15 +34,8 @@ export default function Login() {
     }
   }
 
-  function validateEmail(email: string): boolean {
-    const regex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
-    return regex.test(email);
-  }
-
-  function validatePassword(password: string): boolean {
-    const regex =
-      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
-    return regex.test(password);
+  function handleLogin() {
+    alert(`Login successful! ${email} ${password}`);
   }
 
   return (
@@ -87,6 +84,7 @@ export default function Login() {
           Boolean(passwordError)
         }
         className="w-full"
+        onClick={handleLogin}
       >
         Login
       </button>
