@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import type { Todo } from "../Types/Interfaces";
 
-const TODO_API = `https://jsonplaceholder.typicode.com/todos`;
+const TODO_API = `http://localhost:3000/todos/`;
 
 export default function ActionItems() {
   const [todos, setTodos] = useState<Array<Todo>>([]);
@@ -9,7 +9,11 @@ export default function ActionItems() {
   useEffect(() => {
     fetch(TODO_API)
       .then((response) => response.json())
-      .then((data) => setTodos(data))
+      .then((result) => {
+        if (result) {
+          setTodos(result.data);
+        }
+      })
       .catch((error) => console.error("Error fetching todos:", error))
       .finally(() => console.log("Fetch attempt completed"));
   }, []);

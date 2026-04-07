@@ -15,3 +15,10 @@ export interface Todo {
   completed: boolean;
   userId: number;
 }
+
+export interface TodoV2 {
+  _id?: string;
+  title: string;
+  isCompleted: boolean;
+  userId?: number;
+}

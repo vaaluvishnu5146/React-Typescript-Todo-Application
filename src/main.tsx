@@ -1,10 +1,12 @@
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
-import "./style.css";
-import ActionItems from "./pages/ActionItems.tsx";
+import TaskTracker from "./pages/TaskTracker.tsx";
+import "./todo.css";
+import { ThemeInit } from "../.flowbite-react/init";
 
 createRoot(document.getElementById("root")!).render(
   <StrictMode>
-    <ActionItems />
+    <ThemeInit />
+    <TaskTracker />
   </StrictMode>
 );
