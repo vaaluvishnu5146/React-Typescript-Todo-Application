@@ -49,6 +49,7 @@ export default function Products() {
         "https://img.freepik.com/premium-photo/cup-milk-is-saucer-with-saucer-saucer_999340-57160.jpg",
     },
   ]);
+
   const [cart, setCart] = useState<Array<CartItem>>([]);
 
   function addToCart(product: Product) {
