@@ -7,8 +7,6 @@ export default function OtpScreen() {
 
   useEffect(() => {
     inputRefs.current[0]?.focus();
-
-    console.log(inputRefs);
   }, []);
 
   const handleInputChange = (index: number) => {
@@ -26,6 +24,7 @@ export default function OtpScreen() {
           <input
             key={index}
             ref={(el) => {
+              console.log(el);
               inputRefs.current[index] = el!;
             }}
             type="text"
