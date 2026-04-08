@@ -16,12 +16,14 @@ export function UpdateTodoModal({
   data,
   show,
   onClose,
-  handleTodoUpdate,
+  handleModalOpen,
+  handleUpdate,
 }: {
   data: TodoV2;
   show: boolean;
   onClose: () => void;
-  handleTodoUpdate: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  handleUpdate: () => void;
+  handleModalOpen: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }) {
   return (
     <>
@@ -38,14 +40,14 @@ export function UpdateTodoModal({
                 type="title"
                 placeholder="Prepare breakfast..."
                 required
-                onChange={handleTodoUpdate}
+                onChange={handleModalOpen}
                 value={data.title}
               />
             </div>
             <div className="flex items-center gap-2">
               <Checkbox
                 id="isCompleted"
-                onChange={handleTodoUpdate}
+                onChange={handleModalOpen}
                 checked={data.isCompleted}
               />
               <Label htmlFor="isCompleted">Mark Complete</Label>
@@ -53,7 +55,7 @@ export function UpdateTodoModal({
           </div>
         </ModalBody>
         <ModalFooter>
-          <Button color="green" onClick={() => {}}>
+          <Button color="green" onClick={handleUpdate}>
             Update
           </Button>
           <Button color="alternative" onClick={onClose}>

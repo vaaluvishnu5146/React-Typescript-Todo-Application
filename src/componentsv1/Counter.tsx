@@ -1,35 +1,33 @@
-import { useState, useLayoutEffect, useEffect } from "react";
+import { Button } from "flowbite-react";
+import { useState, useRef } from "react";
 
-// FUNCTIONAL COMPONENT
-function Counter() {
-  const [count, setCount] = useState<number>(0);
-
-  // ComponentWillMount
-  useLayoutEffect(() => {
-    console.log("ComponentWillMount");
-  }, []);
-
-  // ComponentDidMount
-  useEffect(() => {
-    console.log("ComponentDidMount");
-    return () => {};
-  }, []);
-
-  // ComponentWillUpdate
-  useLayoutEffect(() => {
-    console.log("Before changing count", count);
-  }, [count]);
-
-  // ComponentDidUpdate
-  useEffect(() => {
-    console.log("After changing count", count);
-  }, [count]);
-
+export default function Counter() {
+  const [count, setCount] = useState(0);
+  let counter = useRef(0);
   return (
-    <button className="counter" onClick={() => setCount(count + 1)}>
-      Count is {count}
-    </button>
+    <div className="flex gap-5 items-center">
+      <Button
+        color="green"
+        pill
+        onClick={() => {
+          // setCount((prev) => prev - 1);
+          counter.current -= 1;
+        }}
+      >
+        -
+      </Button>
+      <p>{count}</p>
+      <p>{counter.current}</p>
+      <Button
+        color="green"
+        pill
+        onClick={() => {
+          // setCount((prev) => prev + 1);
+          counter.current += 1;
+        }}
+      >
+        +
+      </Button>
+    </div>
   );
 }
-
-export default Counter;

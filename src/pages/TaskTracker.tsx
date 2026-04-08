@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import TextInputV1 from "../componentsv1/TextInputv1";
 import TodoItem from "../componentsv1/TodoItem";
 import type { TodoV2 } from "../Types/Interfaces";
-import { Modal } from "flowbite-react";
 import { UpdateTodoModal } from "../componentsv1/UpdateTodoModal";
 
 const TODO_API = `http://localhost:3000/todos/`;
@@ -105,6 +104,28 @@ export default function TaskTracker() {
       .catch((error) => console.error("Error deleting todo:", error));
   }
 
+  function updateTodo() {
+    fetch(`${TODO_UPDATE_API}${updatedTodo._id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: updatedTodo.title,
+        isCompleted: updatedTodo.isCompleted,
+      }),
+    })
+      .then((response) => response.json())
+      .then((result) => {
+        if (result) {
+          console.log("Todo updated successfully:", result);
+          fetchTodos();
+        }
+      })
+      .catch((error) => console.error("Error updating todo:", error))
+      .finally(() => setUpdateModal(false));
+  }
+
   function handleTodoUpdate(e: React.ChangeEvent<HTMLInputElement>) {
     const copy = {
       ...updatedTodo,
@@ -146,7 +167,8 @@ export default function TaskTracker() {
       <UpdateTodoModal
         show={updateModalOpen}
         onClose={() => setUpdateModal(false)}
-        handleTodoUpdate={handleTodoUpdate}
+        handleModalOpen={handleTodoUpdate}
+        handleUpdate={updateTodo}
         data={updatedTodo}
       />
     </div>
