@@ -146,31 +146,32 @@ export default function TaskTracker() {
   }
 
   return (
-    <div className="app">
-      <h1>My Todo</h1>
-      <TextInputV1
-        value={todo}
-        handleInputChange={handleInputChange}
-        handleSubmit={handleSubmit}
-      />
-      <div className="overflow-container">
-        {todos.map((item, index) => (
-          <TodoItem
-            key={`${item._id}-${index}`}
-            data={item}
-            deleteTodo={deleteTodo}
-            markTodoCompleted={markTodoCompleted}
-            openUpdateModal={handleUpdateModalOpen}
-          />
-        ))}
+    <div className="todo-app-body">
+      <div className="app">
+        <TextInputV1
+          value={todo}
+          handleInputChange={handleInputChange}
+          handleSubmit={handleSubmit}
+        />
+        <div className="overflow-container">
+          {todos.map((item, index) => (
+            <TodoItem
+              key={`${item._id}-${index}`}
+              data={item}
+              deleteTodo={deleteTodo}
+              markTodoCompleted={markTodoCompleted}
+              openUpdateModal={handleUpdateModalOpen}
+            />
+          ))}
+        </div>
+        <UpdateTodoModal
+          show={updateModalOpen}
+          onClose={() => setUpdateModal(false)}
+          handleModalOpen={handleTodoUpdate}
+          handleUpdate={updateTodo}
+          data={updatedTodo}
+        />
       </div>
-      <UpdateTodoModal
-        show={updateModalOpen}
-        onClose={() => setUpdateModal(false)}
-        handleModalOpen={handleTodoUpdate}
-        handleUpdate={updateTodo}
-        data={updatedTodo}
-      />
     </div>
   );
 }

@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { validateEmail, validatePassword } from "../utils/validations";
+import { Button } from "flowbite-react";
+import { Link } from "react-router";
 
 export default function Login() {
   const [email, setEmail] = useState("");
@@ -76,7 +78,7 @@ export default function Login() {
           <p className="text-sm italic text-red-500">{passwordError}</p>
         )}
       </div>
-      <button
+      <Button
         disabled={
           email == "" ||
           password == "" ||
@@ -85,9 +87,18 @@ export default function Login() {
         }
         className="w-full"
         onClick={handleLogin}
+        color={"red"}
       >
         Login
-      </button>
+      </Button>
+      <div>
+        <p>
+          Do not have an account?
+          <span className="px-2">
+            <Link to={"/register"}>Create Account</Link>
+          </span>
+        </p>
+      </div>
     </div>
   );
 }

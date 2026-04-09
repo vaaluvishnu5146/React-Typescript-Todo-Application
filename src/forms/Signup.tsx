@@ -1,6 +1,8 @@
 import { Formik } from "formik";
 import { validateEmail, validatePassword } from "../utils/validations";
 import FormInput from "../elements/FormInput";
+import { Button } from "flowbite-react";
+import { Link } from "react-router";
 
 function Signup() {
   return (
@@ -103,14 +105,23 @@ function Signup() {
                 handleBlur={handleBlur}
               />
             </div>
-            <button
+            <Button
+              color={"red"}
               disabled={
                 Object.keys(errors).length > 0 || !dirty || isSubmitting
               }
               className="w-full"
             >
               Signup
-            </button>
+            </Button>
+            <div className="text-center">
+              <p>
+                Already have an account?
+                <span className="px-2">
+                  <Link to={"/"}>Signin</Link>
+                </span>
+              </p>
+            </div>
           </form>
         )}
       </Formik>
