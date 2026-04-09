@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import TextInputV1 from "../componentsv1/TextInputv1";
-import TodoItem from "../componentsv1/TodoItem";
+import TextInputV1 from "../components/TextInputv1";
+import TodoItem from "../components/TodoItem";
 import type { TodoV2 } from "../Types/Interfaces";
-import { UpdateTodoModal } from "../componentsv1/UpdateTodoModal";
+import { UpdateTodoModal } from "../components/UpdateTodoModal";
 
 const TODO_API = `http://localhost:3000/todos/`;
 const TODO_SAVE_API = `http://localhost:3000/todos/createTodo`;

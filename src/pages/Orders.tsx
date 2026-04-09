@@ -2,7 +2,7 @@ import { useState } from "react";
 import Footer from "../components/Footer";
 import Header from "../components/Header";
 import Sidebar from "../components/Sidebar";
-import OrdersCount from "../componentsv1/OrdersCount";
+import OrdersCount from "../components/OrdersCount";
 
 export default function Orders(props: { message: string }) {
   const [count, setCount] = useState<number>(0);
