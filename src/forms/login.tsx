@@ -3,7 +3,11 @@ import { validateEmail, validatePassword } from "../utils/validations";
 import { Button } from "flowbite-react";
 import { Link } from "react-router";
 
-export default function Login() {
+export default function Login({
+  onLogin,
+}: {
+  onLogin: React.Dispatch<React.SetStateAction<boolean>>;
+}) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [emailError, setEmailError] = useState("");
@@ -38,6 +42,7 @@ export default function Login() {
 
   function handleLogin() {
     alert(`Login successful! ${email} ${password}`);
+    onLogin(true);
   }
 
   return (

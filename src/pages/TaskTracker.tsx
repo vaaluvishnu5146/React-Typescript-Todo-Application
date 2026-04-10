@@ -3,8 +3,11 @@ import TextInputV1 from "../components/TextInputv1";
 import TodoItem from "../components/TodoItem";
 import type { TodoV2 } from "../Types/Interfaces";
 import { UpdateTodoModal } from "../components/UpdateTodoModal";
+import { useSearchParams } from "react-router";
+import RadioGroup from "../elements/RadioGroup";
+import { Type } from "../Types/enums";
 
-const TODO_API = `http://localhost:3000/todos/`;
+const TODO_API = `http://localhost:3000/todos`;
 const TODO_SAVE_API = `http://localhost:3000/todos/createTodo`;
 const TODO_DELETE_API = `http://localhost:3000/todos/deleteTodo/`;
 const TODO_UPDATE_API = `http://localhost:3000/todos/updateTodo/`;
@@ -17,10 +20,12 @@ export default function TaskTracker() {
   });
   const [todos, setTodos] = useState<Array<TodoV2>>([]);
   const [updateModalOpen, setUpdateModal] = useState<boolean>(false);
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selectedType = searchParams.get("type");
 
   useEffect(() => {
-    fetchTodos();
-  }, []);
+    fetchTodos(selectedType);
+  }, [searchParams]);
 
   function handleInputChange(event: React.ChangeEvent<HTMLInputElement>) {
     setTodo(event.target.value);
@@ -38,8 +43,8 @@ export default function TaskTracker() {
     }
   }
 
-  function fetchTodos() {
-    fetch(TODO_API)
+  function fetchTodos(type?: string | null) {
+    fetch(TODO_API + getFilterType(type))
       .then((response) => response.json())
       .then((result) => {
         if (result) {
@@ -62,7 +67,7 @@ export default function TaskTracker() {
       .then((result) => {
         if (result) {
           console.log("Todo created successfully:", result);
-          fetchTodos();
+          fetchTodos(selectedType);
         }
       })
       .catch((error) => console.error("Error creating todo:", error));
@@ -80,7 +85,7 @@ export default function TaskTracker() {
       .then((result) => {
         if (result) {
           console.log("Todo deleted successfully:", result);
-          fetchTodos();
+          fetchTodos(selectedType);
         }
       })
       .catch((error) => console.error("Error deleting todo:", error));
@@ -98,7 +103,7 @@ export default function TaskTracker() {
       .then((result) => {
         if (result) {
           console.log("Todo deleted successfully:", result);
-          fetchTodos();
+          fetchTodos(selectedType);
         }
       })
       .catch((error) => console.error("Error deleting todo:", error));
@@ -119,7 +124,7 @@ export default function TaskTracker() {
       .then((result) => {
         if (result) {
           console.log("Todo updated successfully:", result);
-          fetchTodos();
+          fetchTodos(selectedType);
         }
       })
       .catch((error) => console.error("Error updating todo:", error))
@@ -145,6 +150,23 @@ export default function TaskTracker() {
     setUpdateModal(true);
   }
 
+  function getFilterType(type?: string | null) {
+    console.log(type);
+    if (type?.toLowerCase() == Type.DONE.toString().toLowerCase()) {
+      return `?isCompleted=true`;
+    } else if (type?.toLowerCase() == Type.TODO.toString().toLowerCase()) {
+      return `?isCompleted=false`;
+    } else {
+      return "";
+    }
+  }
+
+  function changeSearchParamsInURL(type: string) {
+    if (type) {
+      setSearchParams({ type });
+    }
+  }
+
   return (
     <div className="todo-app-body">
       <div className="app">
@@ -153,6 +175,12 @@ export default function TaskTracker() {
           handleInputChange={handleInputChange}
           handleSubmit={handleSubmit}
         />
+        <div>
+          <RadioGroup
+            selected={selectedType}
+            onChange={(e) => changeSearchParamsInURL(e.target.id)}
+          />
+        </div>
         <div className="overflow-container">
           {todos.map((item, index) => (
             <TodoItem
