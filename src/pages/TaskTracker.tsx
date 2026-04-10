@@ -6,6 +6,7 @@ import { UpdateTodoModal } from "../components/UpdateTodoModal";
 import { useSearchParams } from "react-router";
 import RadioGroup from "../elements/RadioGroup";
 import { Type } from "../Types/enums";
+import VishnuAxios from "../utils/VishnuAxios";
 
 const TODO_API = `http://localhost:3000/todos`;
 const TODO_SAVE_API = `http://localhost:3000/todos/createTodo`;
@@ -44,11 +45,11 @@ export default function TaskTracker() {
   }
 
   function fetchTodos(type?: string | null) {
-    fetch(TODO_API + getFilterType(type))
-      .then((response) => response.json())
-      .then((result) => {
-        if (result) {
-          setTodos(result.data);
+    VishnuAxios.get("/todos" + getFilterType(type))
+      .then((response) => {
+        console.log(response);
+        if (response && response.status == 200) {
+          setTodos(response.result.data);
         }
       })
       .catch((error) => console.error("Error fetching todos:", error))
@@ -182,7 +183,7 @@ export default function TaskTracker() {
           />
         </div>
         <div className="overflow-container">
-          {todos.map((item, index) => (
+          {todos?.map((item, index) => (
             <TodoItem
               key={`${item._id}-${index}`}
               data={item}

@@ -11,7 +11,7 @@ import { useState } from "react";
 import Task from "./pages/Task";
 
 function App() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loggedIn, setLoggedIn] = useState(true);
   return (
     <div className="h-screen">
       <Routes>
